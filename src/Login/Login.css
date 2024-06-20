@@ -1,0 +1,72 @@
+
+.centre{
+    margin: 250px 0 0 0;
+    /* background-position: center; */
+    /* display: flex; */
+    /* justify-content: center; */
+    /* position: fixed; */
+}
+
+
+/* .container_login{
+
+ 
+
+} */
+
+.login_container{
+
+
+  background-image: url('../assets/img/10.png');
+  height: 100vh;
+  width: 100%;
+  background-repeat: no-repeat;
+  background-position: bottom;
+  background-size:cover;
+  object-fit: contain;
+
+
+
+
+} 
+
+
+/* .container {
+  position: absolute;
+  top: 50px;
+  left: 50px;
+
+} */
+
+.button-btn{
+
+
+display: inline-block;
+background-color: rgb(227, 53, 53); 
+color: black; 
+border: 2px solid #000000;
+transition-duration: 0.5s;
+}
+
+.button-btn:hover{
+
+
+  background-color: #3032ac;
+  color: white;
+  transform: translateY(-3px);
+
+}
+
+.login-background{
+
+background-color:#ffffff;
+width: 50vh;
+mix-blend-mode: multiply;
+
+} 
+
+ form .remember-forgot{
+
+  display: flex;
+  justify-content: space-between;
+}

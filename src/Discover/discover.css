@@ -1,0 +1,77 @@
+.front-head {
+
+    width: 100%;
+    height: 10%;
+
+    /* display: flex; */
+    /* background-color: red; */
+    /* display: none; */
+
+}
+.main-discover
+{
+
+    background-color: rgb(red, green, blue);
+    height: 100%;
+    width: 100%;
+    background-position: bottom;
+    background-image: url('../src/assets/img/Discover.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: fixed;
+    margin: 0px 0px 0px 0px;
+    padding: 0px 0px 0px 0px;
+    justify-content: center;
+    display: flex;
+    background-attachment: fixed;
+
+    opacity: 0.9;
+
+}
+.card{
+
+
+    width: 18rem;
+    box-sizing: border-box;
+    box-shadow: 5px 5px 10px 2px rgba(0, 0, 0, 0.5);
+    --bs-card-spacer-x: 4rem;
+  
+    
+
+}
+
+
+.buyme{
+
+display: flex;
+justify-content: center;
+
+}
+.row{
+
+    --bs-gutter-x: 6.5rem;
+    overflow-x:auto ;
+}
+.btn-primary{
+    --bs-btn-bg: #000000;
+    transition-duration: 0.7s ;
+    
+}
+.btn{
+
+color:gold;
+width: 170px;
+height: 48px;
+--bs-btn-font-size: 2rem;
+
+
+}
+
+.btn-primary:hover{
+
+
+    background-color: #000000;
+    color: white;
+    transform: translateY(-3px);
+    
+}
