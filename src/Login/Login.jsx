@@ -4,6 +4,7 @@ import axios from "axios";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./Login.css";
 import { useNavigate } from "react-router-dom";
+import api from "../server/api";
 // import
 // const mongoose = require("mongoose");
 // import mongoose  from 'mongoose';
@@ -54,7 +55,7 @@ function Login() {
         return;
       }
 
-      const response = await axios.post("http://localhost:4000/login", {
+      const response = await api.post("/login", {
         ...userInfo,
       });
 

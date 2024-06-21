@@ -5,6 +5,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import './Register.css';
 // import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
+import api from '../server/api';
 // import 
 
 function Register() {
@@ -27,7 +28,7 @@ function Register() {
         console.log("hiiiiiiiiiiiiiii")
 
 
-        axios.post('http://localhost:4000/Register', {username:Username, email, password})
+        api.post('/register', {username:Username, email, password})
             .then(result => console.log(result))
             .catch(err => console.Console.log(err))
 
