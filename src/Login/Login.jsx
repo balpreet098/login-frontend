@@ -3,7 +3,7 @@ import { useEffect, useRef, useState } from "react";
 import axios from "axios";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./Login.css";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import api from "../server/api";
 // import
 // const mongoose = require("mongoose");
@@ -163,7 +163,7 @@ function Login() {
 
               <div className="register-link">
                 <p>
-                  Don't have any account? <a href="/Register">Register</a>
+                  Don't have any account? <Link to="/Register">Register</Link>
                 </p>
               </div>
             </div>
