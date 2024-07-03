@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import api from "../server/api";
 import { useNavigate } from "react-router-dom";
+import "./ForgetPassword.css";
 
 export default function ForgetPassword() {
   const [email, setEmail] = useState("");
@@ -21,8 +22,9 @@ export default function ForgetPassword() {
     if (validateEmail()) {
       try {
         const response = await api.post("/forgot-password", { email });
-        if (response.status === 200) { // Assuming 200 is the success status code
-          navigate("/verifyOtp?EMAIL="+email);
+        if (response.status === 200) {
+          // Assuming 200 is the success status code
+          navigate("/verifyOtp", {state:{email}});
         } else {
           setErrorMessage("Failed to send reset email.");
         }
@@ -35,25 +37,37 @@ export default function ForgetPassword() {
 
   return (
     <>
-      <main>
-        <h1>Forget Password</h1>
-        <div>
-          <input
-            type="email"
-            placeholder="Enter your email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            onBlur={validateEmail}
-            required
-          />
+      <div className="forget_container">
+        <div className="items_container">
+          <div className="first_item">
+            <h1>Forget Password</h1>
+          </div>
+
+          <div className="second_item">
+            <input
+              type="email"
+              placeholder="Enter your email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              onBlur={validateEmail}
+              required
+            />
+          </div>
           <br />
-          {errorMessage && <span style={{ color: "red" }}>{errorMessage}</span>}
+          <div className="third_item">
+            {errorMessage && (
+              <span style={{ color: "red" }}>{errorMessage}</span>
+            )}
+          </div>
           <br />
-          <button className="btn btn-primary" onClick={passwordReset}>
-            Submit
-          </button>
+
+          <div className="fourth_item">
+            <button className="btn btn-primary" onClick={passwordReset}>
+              Submit
+            </button>
+          </div>
         </div>
-      </main>
+      </div>
     </>
   );
 }

@@ -1,8 +1,8 @@
 
-.forget_container{
+.verify-otp-container{
 
     width: 300px;
-    height: 300px;
+    height: auto;
     margin: 50px auto;
     padding: 20px;
     border: 2px solid #4CAF50; /* Green border */
@@ -16,7 +16,7 @@
 
 }
 
-.forget_container:hover{
+.verify-otp-container:hover{
 
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3), /* Larger soft shadow */
     0 12px 40px rgba(0, 0, 0, 0.29); /* Larger deeper shadow */
@@ -25,13 +25,27 @@ transform: scale(1.05); /* Slightly larger on hover */
 
 
 }
-
-.items_container{
-    margin: 5px 5px 5px 3px;
-    padding: 4px 4px 4px 5px;
-
+input{
+    margin: 10px;
+    border-radius: 15px;
+    border-color: aqua;
 }
 
 
+.error-msg {
+    color: #ff0000; /* Red color for error messages */
+    font-size: 0.8rem; /* Smaller font size for error messages */
+    margin-top: 5px; /* Space above error messages */
+  }
+  
+  /* .input_class{
+
+    border: 5px;
+    border-radius: 50px;
+    border-color: #ff0000;
 
 
+
+  } */
+
+ 

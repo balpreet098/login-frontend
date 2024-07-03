@@ -7,7 +7,7 @@ import api from "../server/api";
 function Login() {
   const submitBtn = useRef(null);
 
-  const [email, setEmail] = useState("");
+  const [email, setEmail] = useState("bs9988153010@gmail.com");
   const [password, setPassword] = useState("");
   ////////////////////////////////////////////////////////////////////////  error message
   const navigate = useNavigate();
@@ -19,26 +19,25 @@ function Login() {
       navigate("/Homepage");
     }
   }, [navigate]);
+  
+  
 
   async function loginFormHandler(event) {
     event.preventDefault();
 
-    // if (validateEmail() && validatePassword()) {
-    //   try {
-
-    //   } catch (error) {
-    //     setErrorMessage(error.message);
-    //   }
-
-    // }
-
-    const response = await api.post("/login", { email, password });
-
-    if (response.data.isUserLogin) {
-      localStorage.setItem("isUserLogin", true);
-      navigate("/Homepage");
-    } else {
-      alert(response.data.msg);
+    try {
+      const response = await api.post("/login", { email, password });
+  
+      if (response.data.isUserLogin) {
+        localStorage.setItem("isUserLogin", true);
+        navigate("/Homepage");
+      } else {
+        alert(response.data.msg);
+      }
+      console.log(password);
+    } catch (error) {
+      console.error("Error during login:", error);
+      alert(error.response?.data?.msg || "An error occurred during login.");
     }
   }
 
@@ -73,8 +72,8 @@ function Login() {
                     type="email"
                     placeholder="ENTER EMAIL"
                     autoComplete="off"
-                    name="email"
-                    value={email}
+                    name="email" 
+                    value={email} 
                     className="form-control rounded-1"
                     onChange={(e) => setEmail(e.target.value)}
                     required
