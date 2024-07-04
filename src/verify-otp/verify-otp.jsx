@@ -28,7 +28,7 @@ export default function VerifyOtp() {
 
   const validateEmail = (email) => {
     // Regex for email validation
-    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+    return /^[a-zA-Z0-9][a-zA-Z0-9._%+-]*@gmail\.com$/.test(email);
   };
 
   const validatePassword = (password) => {

@@ -17,7 +17,7 @@ function Register() {
   const navigate = useNavigate();
 
   const validateEmail = () => {
-    const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[A-Za-z]{2,}$/;
+    const emailRegex = /^[a-zA-Z0-9][a-zA-Z0-9._%+-]*@gmail\.com$/;
     if (!email?.match(emailRegex)) {
       setErrorMessage({ ...errorMessage, email: "Invalid email format" });
       return false;
