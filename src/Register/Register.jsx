@@ -8,20 +8,22 @@ import { faEye, faEyeSlash, faEnvelope, faUser } from '@fortawesome/free-solid-s
 
 function Register() {
   const submitBtn2 = useRef(null);
-  const [Username, setUsername] = useState("");
+  const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
-  const [errorMessage, setErrorMessage] = useState({  username:"",  email: "", password: "" });
+  const [errorMessage, setErrorMessage] = useState({ username: "", email: "", password: "" });
   const [showSuccessMessage, setShowSuccessMessage] = useState(false); // State for success message
   const navigate = useNavigate();
 
-  const validateUsername = (username) => {
-    const usernameRegex = /^[a-zA-Z0-9][a-zA-Z0-9_-]{2,15}$/;
-    if (!username.match(usernameRegex)) {
-      return "Invalid username format. Username must be 3-16 characters long and can only contain alphanumeric characters, underscores, and hyphens.";
+  const validateUsername = () => {
+    const usernameRegex = /^[a-zA-Z][a-zA-Z0-9_.]{2,14}$/;
+    if (!username?.match(usernameRegex)) {
+      setErrorMessage({ ...errorMessage, username: "Invalid username format. It should start with a letter, be 3-15 characters long, and can contain letters, numbers, underscores, and dots." });
+      return false;
     }
-    return "";
+    setErrorMessage({ ...errorMessage, username: "" });
+    return true;
   };
 
   const validateEmail = () => {
@@ -49,9 +51,9 @@ function Register() {
 
   const handleClick = async (e) => {
     e.preventDefault();
-    if (  validateUsername()   && validateEmail() && validatePassword()) {
+    if (validateUsername() && validateEmail() && validatePassword()) {
       try {
-        await api.post("/register", { username: Username, email, password });
+        await api.post("/register", { username, email, password });
         setShowSuccessMessage(true); // Show success message
         setTimeout(() => {
           navigate("/login");
@@ -85,7 +87,7 @@ function Register() {
               <h1 className="d-flex justify-content-center">REGISTER</h1>
               <form onSubmit={handleClick}>
                 <div className="mb-4">
-                  <label htmlFor="Username">
+                  <label htmlFor="username">
                     <strong>USERNAME</strong>
                   </label>
                   <div className="input-with-icon">
@@ -96,17 +98,15 @@ function Register() {
                       name="username"
                       className="form-control rounded-1 input-field"
                       onChange={(e) => setUsername(e.target.value)}
+                      onBlur={validateUsername}
                       required
                     />
                     <FontAwesomeIcon icon={faUser} className="input-icon" />
                   </div>
-
-                  {errorMessage?.username && (
+                </div>
+                {errorMessage?.username && (
                   <span style={{ color: "red" }}>{errorMessage?.username}</span>
                 )}
-
-
-                </div>
 
                 <div className="mb-4 input-with-icon">
                   <label htmlFor="email">
@@ -166,14 +166,14 @@ function Register() {
                   Already have an account? <Link to="/Login">LOGIN</Link>
                 </p>
               </div>
-            </div>
 
-            {/* Success Message */}
-            {showSuccessMessage && (
-              <div className="success-message">
-                <p>Registered successfully!</p>
-              </div>
-            )}
+              {/* Success Message */}
+              {showSuccessMessage && (
+                <div className="success-message">
+                  <p>Registered successfully!</p>
+                </div>
+              )}
+            </div>
           </div>
         </div>
       </div>
