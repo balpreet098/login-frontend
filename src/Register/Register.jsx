@@ -12,9 +12,17 @@ function Register() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
-  const [errorMessage, setErrorMessage] = useState({ email: "", password: "" });
+  const [errorMessage, setErrorMessage] = useState({  username:"",  email: "", password: "" });
   const [showSuccessMessage, setShowSuccessMessage] = useState(false); // State for success message
   const navigate = useNavigate();
+
+  const validateUsername = (username) => {
+    const usernameRegex = /^[a-zA-Z0-9][a-zA-Z0-9_-]{2,15}$/;
+    if (!username.match(usernameRegex)) {
+      return "Invalid username format. Username must be 3-16 characters long and can only contain alphanumeric characters, underscores, and hyphens.";
+    }
+    return "";
+  };
 
   const validateEmail = () => {
     const emailRegex = /^[a-zA-Z0-9][a-zA-Z0-9._%+-]*@gmail\.com$/;
@@ -41,7 +49,7 @@ function Register() {
 
   const handleClick = async (e) => {
     e.preventDefault();
-    if (validateEmail() && validatePassword()) {
+    if (  validateUsername()   && validateEmail() && validatePassword()) {
       try {
         await api.post("/register", { username: Username, email, password });
         setShowSuccessMessage(true); // Show success message
@@ -92,6 +100,12 @@ function Register() {
                     />
                     <FontAwesomeIcon icon={faUser} className="input-icon" />
                   </div>
+
+                  {errorMessage?.username && (
+                  <span style={{ color: "red" }}>{errorMessage?.username}</span>
+                )}
+
+
                 </div>
 
                 <div className="mb-4 input-with-icon">
