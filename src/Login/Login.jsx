@@ -9,9 +9,10 @@ import { faEye, faEyeSlash, faEnvelope } from '@fortawesome/free-solid-svg-icons
 function Login() {
   const submitBtn = useRef(null);
 
-  const [email, setEmail] = useState("");
+  const [email, setEmail] = useState(localStorage.getItem("rememberedEmail") || "");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
+  const [rememberMe, setRememberMe] = useState(localStorage.getItem("rememberMe") === "true");
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -19,7 +20,7 @@ function Login() {
       navigate("/Homepage");
     }
   }, [navigate]);
-  
+
   async function loginFormHandler(event) {
     event.preventDefault();
 
@@ -27,6 +28,13 @@ function Login() {
       const response = await api.post("/login", { email, password });
   
       if (response.data.isUserLogin) {
+        if (rememberMe) {
+          localStorage.setItem("rememberedEmail", email);
+        } else {
+          localStorage.removeItem("rememberedEmail");
+        }
+
+        localStorage.setItem("rememberMe", rememberMe);
         localStorage.setItem("isUserLogin", true);
         navigate("/Homepage");
       } else {
@@ -70,8 +78,8 @@ function Login() {
                     type="email"
                     placeholder="ENTER EMAIL"
                     autoComplete="off"
-                    name="email" 
-                    value={email} 
+                    name="email"
+                    value={email}
                     className="form-control rounded-1 input-field"
                     onChange={(e) => setEmail(e.target.value)}
                     required
@@ -101,7 +109,11 @@ function Login() {
 
                 <div className="remember-forgot">
                   <label htmlFor="remember">
-                    <input type="checkbox" />
+                    <input
+                      type="checkbox"
+                      checked={rememberMe}
+                      onChange={(e) => setRememberMe(e.target.checked)}
+                    />
                     <p>
                       Remember me{" "}
                       <Link to={"/forget-password"}>Forgot password</Link>
@@ -128,4 +140,5 @@ function Login() {
     </div>
   );
 }
+
 export default Login;
