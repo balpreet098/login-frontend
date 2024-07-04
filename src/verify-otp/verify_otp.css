@@ -1,51 +1,62 @@
-
-.verify-otp-container{
-
-    width: 300px;
-    height: auto;
-    margin: 50px auto;
-    padding: 20px;
-    border: 2px solid #4CAF50; /* Green border */
-    border-radius: 15px; /* Rounded corners */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2), /* Soft shadow */
-                0 6px 20px rgba(0, 0, 0, 0.19); /* Deeper shadow */
-    background-color: #fff; /* White background */
-    text-align: center; /* Centered text */
-    font-family: Arial, sans-serif; /* Font styling */
-    transition: all 0.3s ease-in-out; /* Smooth transition for hover effect */
-
-}
-
-.verify-otp-container:hover{
-
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3), /* Larger soft shadow */
-    0 12px 40px rgba(0, 0, 0, 0.29); /* Larger deeper shadow */
-transform: scale(1.05); /* Slightly larger on hover */
-
-
-
-}
-input{
-    margin: 10px;
-    border-radius: 15px;
-    border-color: aqua;
-}
-
-
-.error-msg {
-    color: #ff0000; /* Red color for error messages */
-    font-size: 0.8rem; /* Smaller font size for error messages */
-    margin-top: 5px; /* Space above error messages */
+.verify-otp-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
   }
   
-  /* .input_class{
-
-    border: 5px;
-    border-radius: 50px;
-    border-color: #ff0000;
-
-
-
-  } */
-
- 
+  .container-item {
+    width: 400px;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .verify-first {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  .second {
+    margin-bottom: 15px;
+  }
+  
+  .input_class {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  
+  .btn {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .btn-secondary {
+    background-color: #6c757d;
+  }
+  
+  .error-msg {
+    color: red;
+    font-size: 14px;
+    margin-top: 5px;
+  }
+  
+  .success-message {
+    background-color: #4caf50;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+    text-align: center;
+    margin-top: 10px;
+  }
+  

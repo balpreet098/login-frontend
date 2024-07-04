@@ -3,25 +3,23 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "./Login.css";
 import { Link, useNavigate } from "react-router-dom";
 import api from "../server/api";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faEye, faEyeSlash, faEnvelope } from '@fortawesome/free-solid-svg-icons';
 
 function Login() {
   const submitBtn = useRef(null);
 
-  const [email, setEmail] = useState("bs9988153010@gmail.com");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  ////////////////////////////////////////////////////////////////////////  error message
+  const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
 
-  /////////////////////////////////////////////////////////validate email
-  ////////////////////////////////////////////////////////vlaidate password
   useEffect(() => {
     if (localStorage.getItem("isUserLogin")) {
       navigate("/Homepage");
     }
   }, [navigate]);
   
-  
-
   async function loginFormHandler(event) {
     event.preventDefault();
 
@@ -64,7 +62,7 @@ function Login() {
             <div className="login-background p-3 rounded">
               <h1 className="d-flex justify-content-center">LOGIN</h1>
               <form onSubmit={loginFormHandler}>
-                <div className="mb-4">
+                <div className="mb-4 input-with-icon">
                   <label htmlFor="email">
                     <strong>EMAIL</strong>
                   </label>
@@ -74,24 +72,30 @@ function Login() {
                     autoComplete="off"
                     name="email" 
                     value={email} 
-                    className="form-control rounded-1"
+                    className="form-control rounded-1 input-field"
                     onChange={(e) => setEmail(e.target.value)}
                     required
                   />
+                  <FontAwesomeIcon icon={faEnvelope} className="input-icon" />
                 </div>
-                <div className="mb-4">
+                <div className="mb-4 input-with-icon">
                   <label htmlFor="password">
                     <strong>PASSWORD</strong>
                   </label>
                   <input
-                    type="password"
+                    type={showPassword ? "text" : "password"}
                     placeholder="ENTER PASSWORD"
                     autoComplete="off"
                     name="password"
                     value={password}
-                    className="form-control rounded-1"
+                    className="form-control rounded-1 input-field"
                     onChange={(e) => setPassword(e.target.value)}
                     required
+                  />
+                  <FontAwesomeIcon
+                    icon={showPassword ? faEyeSlash : faEye}
+                    className="input-icon"
+                    onClick={() => setShowPassword(!showPassword)}
                   />
                 </div>
 

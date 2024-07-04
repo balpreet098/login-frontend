@@ -1,156 +1,150 @@
-import React from "react";
-import { useEffect, useRef, useState } from "react";
-// import axios from "axios";
+import React, { useEffect, useRef, useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./Register.css";
-// import { Link } from 'react-router-dom';
 import { Link, useNavigate } from "react-router-dom";
 import api from "../server/api";
-// import
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faEye, faEyeSlash, faEnvelope, faUser } from '@fortawesome/free-solid-svg-icons';
 
 function Register() {
-  const submitBtn2 = useRef("");
-  const [Username, setUsername] = useState(0);
-  const [email, setEmail] = useState(0);
-  const [password, setPassword] = useState(0);
-  const [errorMessage, setErrorMessage] = useState({email:"", password:""});
-
-  
-  const Navigate = useNavigate();
+  const submitBtn2 = useRef(null);
+  const [Username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
+  const [errorMessage, setErrorMessage] = useState({ email: "", password: "" });
+  const [showSuccessMessage, setShowSuccessMessage] = useState(false); // State for success message
+  const navigate = useNavigate();
 
   const validateEmail = () => {
- 
     const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[A-Za-z]{2,}$/;
-
     if (!email?.match(emailRegex)) {
-      setErrorMessage({...errorMessage,email:"invalid email format"});
+      setErrorMessage({ ...errorMessage, email: "Invalid email format" });
       return false;
     }
-
-
-    setErrorMessage({...errorMessage,email:""});
-  
-   
+    setErrorMessage({ ...errorMessage, email: "" });
     return true;
   };
 
   const validatePassword = () => {
-    const passwordRegex =
-      /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/;
-
+    const passwordRegex = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/;
     if (!password?.match(passwordRegex)) {
-      setErrorMessage(
-       {...errorMessage,
-        password:"Password must be at least 8 characters long, contain at least one uppercase letter, one lowercase letter, one number, and one special character"
-       }
-      );
-
-      
+      setErrorMessage({
+        ...errorMessage,
+        password: "Password must be at least 8 characters long, contain at least one uppercase letter, one lowercase letter, one number, and one special character"
+      });
       return false;
-    } 
-      setErrorMessage({...errorMessage,password:""});
- 
+    }
+    setErrorMessage({ ...errorMessage, password: "" });
     return true;
   };
 
-  const handleClick = (e) => {
-    e.preventDefault(); 
+  const handleClick = async (e) => {
+    e.preventDefault();
     if (validateEmail() && validatePassword()) {
       try {
-        api.post("/register", { username: Username, email, password });
-        Navigate("/aftregis");
+        await api.post("/register", { username: Username, email, password });
+        setShowSuccessMessage(true); // Show success message
+        setTimeout(() => {
+          navigate("/login");
+        }, 2000); // Navigate after 2 seconds
       } catch (error) {
-        // setErrorMessage(errorMessage);
-        console.log("euihbsdcvihsadbvc")
+        console.log("Error during registration:", error);
       }
     }
-
-    // api.post('/register', {username:Username, email, password})
-    //     .then(result => console.log(result))
-    //     .catch(err => console.Console.log(err))
   };
 
   useEffect(() => {
-    document.addEventListener("keydown", function (event) {
+    const handleKeyDown = (event) => {
       if (event.key === "Enter") {
         if (submitBtn2.current) {
           submitBtn2.current.click();
         }
       }
-    });
+    };
+    document.addEventListener("keydown", handleKeyDown);
+    return () => {
+      document.removeEventListener("keydown", handleKeyDown);
+    };
   }, []);
 
   return (
     <div className="main login_container">
-      <div className="containesdfgfsdgfdgefgr-background d-flex justify-content-center ">
+      <div className="containesdfgfsdgfdgefgr-background d-flex justify-content-center">
         <div className="centre mx-auto">
-          <div className=" page d-flex justify-content-center form-center">
-            <div className=" login-background p-3 rounded  ">
+          <div className="page d-flex justify-content-center form-center">
+            <div className="login-background p-3 rounded">
               <h1 className="d-flex justify-content-center">REGISTER</h1>
               <form onSubmit={handleClick}>
                 <div className="mb-4">
                   <label htmlFor="Username">
-                    <strong>USERNAME</strong>{" "}
+                    <strong>USERNAME</strong>
                   </label>
-
-                  <input
-                    type="text"
-                    placeholder="ENTER USERNAME"
-                    autoComplete="off"
-                    name="username"
-                    className="form-control rounded-1"
-                    onChange={(e) => setUsername(e.target.value)}
-                    required
-                  />
+                  <div className="input-with-icon">
+                    <input
+                      type="text"
+                      placeholder="ENTER USERNAME"
+                      autoComplete="off"
+                      name="username"
+                      className="form-control rounded-1 input-field"
+                      onChange={(e) => setUsername(e.target.value)}
+                      required
+                    />
+                    <FontAwesomeIcon icon={faUser} className="input-icon" />
+                  </div>
                 </div>
 
-                <div className="mb-4">
+                <div className="mb-4 input-with-icon">
                   <label htmlFor="email">
-                    <strong>EMAIL</strong>{" "}
+                    <strong>EMAIL</strong>
                   </label>
-
                   <input
-                    type="text"
+                    type="email"
                     placeholder="ENTER EMAIL"
                     autoComplete="off"
                     name="email"
-                    className="form-control rounded-1"
-                    onChange={(e) => setEmail(e.target.value)} 
+                    className="form-control rounded-1 input-field"
+                    onChange={(e) => setEmail(e.target.value)}
                     onBlur={validateEmail}
                     required
                   />
+                  <FontAwesomeIcon icon={faEnvelope} className="input-icon" />
                 </div>
-                {errorMessage?.email && (<span style={{ color: "red" }}>{errorMessage?.email}</span>)}
+                {errorMessage?.email && (
+                  <span style={{ color: "red" }}>{errorMessage?.email}</span>
+                )}
 
-                <div className="mb-4">
+                <div className="mb-4 input-with-icon">
                   <label htmlFor="password">
                     <strong>PASSWORD</strong>
                   </label>
                   <input
-                    type="password"
+                    type={showPassword ? "text" : "password"}
                     placeholder="ENTER PASSWORD"
                     autoComplete="off"
-                    name="PASSWORD"
-                    className="form-control rounded-1"
+                    name="password"
+                    className="form-control rounded-1 input-field"
                     onChange={(e) => setPassword(e.target.value)}
                     onBlur={validatePassword}
                     required
                   />
+                  <FontAwesomeIcon
+                    icon={showPassword ? faEyeSlash : faEye}
+                    className="input-icon"
+                    onClick={() => setShowPassword(!showPassword)}
+                  />
                 </div>
-                {errorMessage?.password && (<span style={{ color: "red" }}>{errorMessage?.password}</span>)}
-    
-         
-
-                {/* <Link to="/Aftregis" > */}
+                {errorMessage?.password && (
+                  <span style={{ color: "red" }}>{errorMessage?.password}</span>
+                )}
 
                 <button
                   ref={submitBtn2}
                   type="submit"
-                  className=" button-btn btn-default border w-100 rounded-0 text-decoration-none"
+                  className="button-btn btn-default border w-100 rounded-0 text-decoration-none"
                 >
                   <h3>REGISTER</h3>
                 </button>
-                {/* </Link> */}
               </form>
 
               <div className="already">
@@ -159,6 +153,13 @@ function Register() {
                 </p>
               </div>
             </div>
+
+            {/* Success Message */}
+            {showSuccessMessage && (
+              <div className="success-message">
+                <p>Registered successfully!</p>
+              </div>
+            )}
           </div>
         </div>
       </div>

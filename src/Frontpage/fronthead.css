@@ -1,3 +1,11 @@
+body {
+    /* Example background settings */
+    background-color: #f0f0f0; /* Replace with your desired background color or image */
+    background-attachment: fixed; /* Ensures the background stays fixed while content scrolls */
+    background-size: cover; /* Cover the entire viewport */
+  }
+
+
 .main {
 
     height: 100%;
@@ -82,7 +90,7 @@
 
 }
 
-.btn {
+.btno {
 
     color: #000;
     margin: 0px 0px 0px 0px;
@@ -244,3 +252,43 @@ img {
 
 
 }
+
+@viewport {
+    width: device-width;
+    zoom: 1.0;
+  }
+  
+  @media only screen and (max-width: 768px) {
+    .front-head {
+      padding: 10px; /* Example: Adjust padding for smaller headers */
+      /* Add other adjustments for smaller headers if needed */
+    }
+  
+    .txt1 {
+      font-size: 16px;
+      line-height: 1.2;
+      /* Adjust font size and line height for smaller screens */
+    }
+  
+    .txt2 {
+      font-size: 18px;
+      /* Adjust font size for smaller screens */
+    }
+  
+    .txt3 {
+      font-size: 14px;
+      /* Adjust font size for smaller screens */
+    }
+  
+    .btns {
+      margin-top: 10px;
+      /* Adjust button sizes or spacing for smaller screens */
+    }
+  }
+  
+  /* Additional media queries for tablets and smaller desktop screens if necessary */
+  @media only screen and (max-width: 1024px) {
+    /* Add specific styles for tablets */
+  }
+  
+  /* Mobile-first approach: Start with basic styles and progressively enhance for larger screens */

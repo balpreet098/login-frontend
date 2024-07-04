@@ -30,7 +30,7 @@ function Frontpage() {
         <div className="front-head">
           <div className="l-b-mix">
             <div className="logo" ><img src={image} alt='logo/img' width='80px' height='80px' /></div>
-            <div className="btn"><button className='main-btn' onClick={clickbtn} ><h1>BUY THEME</h1></button></div>
+            <div className="btno"><button className='main-btn' onClick={clickbtn} ><h1>BUY THEME</h1></button></div>
           </div>
 
         </div>

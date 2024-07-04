@@ -37,6 +37,7 @@ export default function ForgetPassword() {
 
   return (
     <>
+    <div className="big_container">
       <div className="forget_container">
         <div className="items_container">
           <div className="first_item">
@@ -67,6 +68,7 @@ export default function ForgetPassword() {
             </button>
           </div>
         </div>
+      </div>
       </div>
     </>
   );

@@ -1,9 +1,14 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import "./homepage.css";
 import { Navigate, useNavigate } from "react-router-dom";
 
 function Homepage() {
   const navigate = useNavigate();
+  const [show, setShow] = useState(false);
+
+  useEffect(() => {
+    setShow(true); // Trigger animation on component mount
+  }, []);
 
   const logout = (e) => {
     e.preventDefault();
@@ -14,14 +19,13 @@ function Homepage() {
   };
 
   return (
-    <div className="body">
-      <div className="container-home">
+    <div className={`body ${show ? "show" : ""}`}>
+      <div className={`container-home ${show ? "show" : ""}`}>
         <h1>Login Successful!</h1>
-        <p>Welcome back, User!</p>
+        <p>Welcome back, user.</p>
         <div className="main-button">
           <button onClick={logout} type="button" className="logout-btn">
-            {" "}
-            <h1>LOG OUT</h1>
+            LOG OUT
           </button>
         </div>
       </div>
