@@ -26,7 +26,7 @@ export default function ForgetPassword() {
           // Assuming 200 is the success status code
           navigate("/verifyOtp", {state:{email}});
         } else {
-          setErrorMessage("Failed to send reset email.");
+          setErrorMessage("Failed to send reset email."); 
         }
       } catch (error) {
         setErrorMessage("Failed to send reset email.");
