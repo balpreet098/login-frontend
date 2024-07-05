@@ -70,9 +70,9 @@ export default function VerifyOtp() {
     }
 
     try {
-      const response = await api.post(
-        `http://localhost:4000/verify-otp?otp=${otp}&email=${email}`,
-        { email, otp, newPassword }
+      const response = await api.post(`/verify-otp?otp=${otp}&email=${email}`,
+
+  
       );
 
       console.log(response);
