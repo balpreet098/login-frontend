@@ -4,21 +4,21 @@ import Frontpage from "./Frontpage/Frontpage.jsx";
 import Discover from "./Discover/Discover.jsx";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Register from "./Register/Register.jsx";
-import Aftregis from "./Register/After-regis.jsx";
-import axios from "axios";
+import Aftregis from "./Register/After-regis.jsx"; 
 import { useEffect } from "react";
 import Protected from "./protected-route/Protected.jsx";
 import ForgetPassword from "./ForgetPassword/ForgetPassword.jsx";
 import VerifyOtp from "./verify-otp/verify-otp.jsx";
 import Updateuser from "./UPDATE-USER/update-user.jsx";
+import api from "./server/api.js";
 
 
 function App() {
   useEffect(() => {
     (async () => {
-      axios
+      api
         .get(
-          "http://127.0.0.1:4000/tk",
+          "/tk",
 
           { withCredentials: true }
         )

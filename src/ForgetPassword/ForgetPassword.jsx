@@ -26,10 +26,10 @@ export default function ForgetPassword() {
           // Assuming 200 is the success status code
           navigate("/verifyOtp", {state:{email}});
         } else {
-          setErrorMessage("Failed to send reset email."); 
+          setErrorMessage(" THIS EMAIL IS NOT REGISTERED."); 
         }
       } catch (error) {
-        setErrorMessage("Failed to send reset email.");
+        setErrorMessage("THIS EMAIL IS NOT REGISTERED");
         console.log(error.message);
       }
     }

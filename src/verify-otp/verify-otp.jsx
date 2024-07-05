@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import api from "../server/api";
 import "./verify_otp.css";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faEnvelope, faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 
 export default function VerifyOtp() {
   const [otp, setOtp] = useState("");
@@ -10,9 +12,11 @@ export default function VerifyOtp() {
   const [otpError, setOtpError] = useState("");
   const [emailError, setEmailError] = useState("");
   const [passwordError, setPasswordError] = useState("");
-  const [resetSuccess, setResetSuccess] = useState(false); // State for success message
+  const [resetSuccess, setResetSuccess] = useState(false);
+  const [showPassword, setShowPassword] = useState(false); // State for toggling password visibility
   const location = useLocation();
   const navigate = useNavigate();
+  const [message, setMessage] = useState('');
 
   useEffect(() => {
     const emailParam = location.state?.email;
@@ -22,26 +26,20 @@ export default function VerifyOtp() {
   }, [location.state]);
 
   const validateOtp = (otp) => {
-    // Regex for OTP: 6 digits exactly
     return /^\d{6}$/.test(otp);
   };
 
   const validateEmail = (email) => {
-    // Regex for email validation
     return /^[a-zA-Z0-9][a-zA-Z0-9._%+-]*@gmail\.com$/.test(email);
   };
 
   const validatePassword = (password) => {
-    // Regex for password validation: at least 8 characters, at least one uppercase letter, one lowercase letter, one number, and one special character.
-    return /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/.test(
-      password
-    );
+    return /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/.test(password);
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Validation checks
     let isOtpValid = validateOtp(otp);
     let isEmailValid = validateEmail(email);
     let isPasswordValid = validatePassword(newPassword);
@@ -61,39 +59,33 @@ export default function VerifyOtp() {
     }
 
     if (!isPasswordValid) {
-      setPasswordError(
-        "Password must be at least 8 characters long, with at least one uppercase letter, one lowercase letter, one number, and one special character."
-      );
+      setPasswordError("Password must be at least 8 characters long, with at least one uppercase letter, one lowercase letter, one number, and one special character.");
       return;
     } else {
       setPasswordError("");
     }
 
     try {
-      const response = await api.post(`/verify-otp?otp=${otp}&email=${email}`,
-
-  
-      );
-
+      const response = await api.post(`/verify-otp?otp=${otp}&email=${email}&newPassword=${newPassword}`);
       console.log(response);
       console.log(response.data.msg);
-
-      // Show success message
+      setMessage(response.data.msg);
       setResetSuccess(true);
-
-      // Navigate to login page after successful reset
       setTimeout(() => {
         navigate("/login");
-      }, 3000); // Navigate after 3 seconds
-
+      }, 3000);
     } catch (error) {
-      console.error(error.response?.data?.msg || "An error occurred");
+      if (error.response && error.response.data) {
+        setMessage(error.response.data.msg);
+      } else {
+        setMessage('An error occurred');
+      }
     }
   };
 
   return (
     <>
-      <div className="verify-otp-container">
+      <div id="verify-otp-container">
         <div className="container-item">
           <div className="verify-first">
             <h1>RESET PASSWORD</h1>
@@ -112,27 +104,35 @@ export default function VerifyOtp() {
             </div>
 
             <div className="second">
-              <input
-                className="input_class"
-                type="text"
-                placeholder="Enter your Email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-              />
+              <div className="input-wrapper">
+                <input
+                  className="input_class"
+                  type="text"
+                  placeholder="Enter your Email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                />
+                <FontAwesomeIcon icon={faEnvelope} className="icon" />
+              </div>
               {emailError && <span className="error-msg">{emailError}</span>}
             </div>
 
             <div className="second">
-              <input
-                className="input_class"
-                type="password"
-                placeholder="Enter your Password"
-                value={newPassword}
-                onChange={(e) => setNewPassword(e.target.value)}
-              />
-              {passwordError && (
-                <span className="error-msg">{passwordError}</span>
-              )}
+              <div className="input-wrapper">
+                <input
+                  className="input_class"
+                  type={showPassword ? "text" : "password"}
+                  placeholder="Enter your Password"
+                  value={newPassword}
+                  onChange={(e) => setNewPassword(e.target.value)}
+                />
+                <FontAwesomeIcon
+                  icon={showPassword ? faEyeSlash : faEye}
+                  className="icon"
+                  onClick={() => setShowPassword(!showPassword)}
+                />
+              </div>
+              {passwordError && <span className="error-msg">{passwordError}</span>}
             </div>
 
             <div className="third">
@@ -141,8 +141,8 @@ export default function VerifyOtp() {
               </button>
             </div>
           </form>
+          {message && <p>{message}</p>}
 
-          {/* Success message */}
           {resetSuccess && (
             <div className="success-message">
               Password reset successfully!

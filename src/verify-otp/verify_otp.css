@@ -1,62 +1,72 @@
-.verify-otp-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-  }
-  
-  .container-item {
-    width: 400px;
-    padding: 20px;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  }
-  
-  .verify-first {
-    text-align: center;
-    margin-bottom: 20px;
-  }
-  
-  .second {
-    margin-bottom: 15px;
-  }
-  
-  .input_class {
-    width: 100%;
-    padding: 10px;
-    font-size: 16px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-  }
-  
-  .btn {
-    width: 100%;
-    padding: 10px;
-    font-size: 16px;
-    background-color: #007bff;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-  }
-  
-  .btn-secondary {
-    background-color: #6c757d;
-  }
-  
-  .error-msg {
-    color: red;
-    font-size: 14px;
-    margin-top: 5px;
-  }
-  
-  .success-message {
-    background-color: #4caf50;
-    color: white;
-    padding: 10px 20px;
-    border-radius: 5px;
-    text-align: center;
-    margin-top: 10px;
-  }
-  
+#verify-otp-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: auto;
+  background-color: #f0f0f0;
+  padding: 20px;
+}
+
+.container-item {
+  background: #f0f0f0;
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  text-align: center;
+  max-width: 400px;
+  width: 100%;
+}
+
+.verify-first {
+  margin-bottom: 20px;
+}
+
+.input-wrapper {
+  position: relative;
+}
+
+.input_class {
+  width: 100%;
+  padding: 10px;
+  padding-right: 40px;
+  margin: 10px 0;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.icon {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+}
+
+.btn-secondary {
+  background-color: #007bff;
+  color: white;
+  padding: 0px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  /* transition: background-color 0.3s; */
+  text-align: center;
+  transition-duration: 0.5s;
+}
+
+.btn-secondary:hover {
+  background-color: black;
+  transform: translateY(-3px);
+  transition-duration: 0.5s;
+}
+
+.error-msg {
+  color: red;
+  font-size: 0.9em;
+}
+
+.success-message {
+  color: green;
+  font-size: 1.1em;
+  margin-top: 20px;
+}
